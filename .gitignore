@@ -1,0 +1,11 @@
+node_modules/
+.pnpm-store/
+.turbo/
+dist/
+coverage/
+.env
+.secrets/
+*.log
+
+# Local PostgreSQL data, if a bind mount is used later.
+.data/

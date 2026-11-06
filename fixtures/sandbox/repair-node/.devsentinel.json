@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "guidance": {
+    "path": "DEVSENTINEL.md",
+    "version": "fixture-1"
+  },
+  "supportedSourcePaths": ["src"],
+  "excludedPaths": [],
+  "testProfiles": [],
+  "regressionTests": {
+    "enabled": true,
+    "allowedPaths": ["test"]
+  }
+}

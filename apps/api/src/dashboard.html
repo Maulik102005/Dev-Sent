@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>DevSentinel · Review Console</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <script src="/dashboard.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to run workspace</a>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <button class="brand button-reset" id="home" type="button" aria-label="Open run overview">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-fallback">S</span>
+          <img src="https://avatars.githubusercontent.com/in/4855052?s=96&amp;v=4" alt="" width="34" height="34" referrerpolicy="no-referrer">
+        </span>
+        <span><strong>DevSentinel</strong><small>review console</small></span>
+      </button>
+      <div class="topbar-actions">
+        <span class="connection-pill is-offline" id="connection"><i></i><span>Not connected</span></span>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">◐</button>
+        <button class="quiet-button" id="disconnect" type="button" hidden>Lock</button>
+      </div>
+    </header>
+
+    <main id="main" class="shell">
+      <section class="auth-card" id="auth-view" aria-labelledby="auth-title">
+        <div class="eyebrow">Private operator view</div>
+        <h1 id="auth-title">See what happened. See why.</h1>
+        <p>Review the request, files, decisions, test proof, usage, and delivery in one place.</p>
+        <form id="connect" class="auth-form">
+          <label for="token">Dashboard access key</label>
+          <div class="token-row">
+            <input id="token" type="password" autocomplete="off" spellcheck="false" required placeholder="Paste your access key">
+            <button class="primary-button" type="submit">Unlock workspace <span aria-hidden="true">→</span></button>
+          </div>
+          <small>Your access key stays only in this tab’s memory. It is never saved or placed in a URL.</small>
+        </form>
+        <div class="auth-status" id="auth-status" role="status" aria-live="polite"></div>
+        <div class="trust-row" aria-label="Security properties">
+          <span>Private run evidence</span><span>No automatic merge</span><span>Local workspace</span>
+        </div>
+      </section>
+
+      <div class="app-layout" id="app-view" hidden>
+        <aside class="sidebar" aria-label="Run navigation">
+          <div class="sidebar-heading">
+            <div><span class="eyebrow">Workspace</span><h2>Runs</h2></div>
+            <button class="icon-button" id="refresh" type="button" aria-label="Refresh runs" title="Refresh runs">↻</button>
+          </div>
+          <div class="search-wrap">
+            <span aria-hidden="true">⌕</span>
+            <label class="sr-only" for="search">Search runs</label>
+            <input id="search" type="search" placeholder="Repository, issue, run…" autocomplete="off">
+            <kbd>/</kbd>
+          </div>
+          <div class="filter-row">
+            <label><span class="sr-only">Mode</span><select id="mode-filter"><option value="">All modes</option><option value="FIX">Repair</option><option value="TEST">Test only</option></select></label>
+            <label><span class="sr-only">Status</span><select id="status-filter"><option value="">All states</option><option value="AUTHORIZING">Checking access</option><option value="PREPARING">Preparing</option><option value="PROVISIONING">Getting code</option><option value="BASELINING">Running baseline</option><option value="DIAGNOSING">Investigating</option><option value="PATCHING">Preparing change</option><option value="VERIFYING">Running checks</option><option value="AWAITING_CLARIFICATION">Waiting for answer</option><option value="PUBLISHING">Publishing review</option><option value="SUCCEEDED">Completed</option><option value="NEEDS_HUMAN">Needs review</option><option value="BUDGET_EXHAUSTED">Run limit reached</option><option value="FAILED">Could not complete</option><option value="REJECTED">Not authorized</option><option value="CANCELLED">Cancelled</option></select></label>
+          </div>
+          <div class="run-list" id="run-list" aria-live="polite"></div>
+          <div class="pager" id="pager" hidden>
+            <button class="icon-button" id="previous-page" type="button" aria-label="Previous page">←</button>
+            <span id="page-label">1 / 1</span>
+            <button class="icon-button" id="next-page" type="button" aria-label="Next page">→</button>
+          </div>
+          <footer class="sidebar-footer"><span class="live-dot"></span><span id="stream-label">Fallback polling idle</span></footer>
+        </aside>
+
+        <section class="workspace" id="workspace">
+          <div id="overview-view">
+            <div class="hero-row">
+              <div><div class="eyebrow">At a glance</div><h1>Know what changed.<br>See the proof.</h1></div>
+              <p id="overview-copy">Loading real service readiness and recent work…</p>
+            </div>
+            <div class="readiness-grid" id="readiness-grid" aria-label="Service readiness"></div>
+            <section class="panel recent-panel">
+              <div class="panel-heading"><div><span class="eyebrow">Recent activity</span><h2>Recent runs</h2></div><span class="meta" id="run-count"></span></div>
+              <div class="run-table-wrap"><table class="run-table"><thead><tr><th>Request</th><th>Mode</th><th>Status</th><th>Delivery</th><th>Updated</th></tr></thead><tbody id="run-table"></tbody></table></div>
+              <div class="empty-state" id="overview-empty" hidden><span class="empty-glyph">◇</span><h3>No matching runs</h3><p>Post a new <code>/devsentinel test</code> or <code>/devsentinel fix</code> comment on an enabled issue.</p></div>
+            </section>
+          </div>
+
+          <article id="run-view" hidden>
+            <nav class="breadcrumbs" aria-label="Breadcrumb"><button class="button-reset text-button" id="back-overview" type="button">Overview</button><span>/</span><span id="crumb-repo"></span><span>/</span><strong id="crumb-issue"></strong></nav>
+            <header class="run-header">
+              <div>
+                <div class="run-kicker"><span class="mode-chip" id="run-mode"></span><code id="run-id"></code><button class="copy-button" id="copy-id" type="button">Copy</button></div>
+                <h1 id="run-title">Run</h1>
+                <p id="run-reason"></p>
+              </div>
+              <div class="run-header-side"><span class="status-badge" id="run-status"></span><span class="delivery-label" id="run-delivery"></span></div>
+            </header>
+
+            <div class="workspace-grid">
+              <div class="workspace-primary">
+                <section class="panel task-panel" id="task-panel"></section>
+                <section class="panel" id="plan-panel"></section>
+                <section class="panel">
+                  <div class="panel-heading"><div><span class="eyebrow">Activity</span><h2>What happened</h2></div><span class="meta" id="event-meta"></span></div>
+                  <ol class="timeline" id="timeline"></ol>
+                </section>
+                <section class="panel" id="changes-panel"></section>
+                <section class="panel" id="tests-panel"></section>
+                <section class="panel" id="logs-panel"></section>
+              </div>
+
+              <aside class="workspace-secondary">
+                <section class="panel evidence-card" id="budget-panel"></section>
+                <section class="panel evidence-card" id="delivery-panel"></section>
+                <section class="panel inspector-card">
+                  <div class="inspector-title"><span class="inspector-orb" aria-hidden="true"></span><div><span class="eyebrow">Read-only</span><h2>Ask about this run</h2></div></div>
+                  <p>Answers use the saved run record. Asking a question never starts work or changes scope.</p>
+                  <div class="prompt-grid" id="prompt-grid">
+                    <button type="button" data-question="Why did this fail?">Why did this fail?</button>
+                    <button type="button" data-question="What changed?">What changed?</button>
+                    <button type="button" data-question="What remains unverified?">What remains unverified?</button>
+                    <button type="button" data-question="What should I do next?">What should I do next?</button>
+                  </div>
+                  <form id="inspector-form" class="inspector-form"><label class="sr-only" for="inspector-question">Ask about this run</label><textarea id="inspector-question" rows="2" maxlength="2000" placeholder="Ask a question…"></textarea><button class="primary-button" type="submit">Ask</button></form>
+                  <div class="inspector-thread" id="inspector-thread" aria-live="polite"></div>
+                </section>
+              </aside>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="confirm-dialog" class="dialog">
+      <form method="dialog">
+        <span class="eyebrow">Explicit confirmation</span>
+        <h2 id="dialog-title">Confirm action</h2>
+        <p id="dialog-body"></p>
+        <div id="dialog-fields" class="dialog-fields"></div>
+        <div class="dialog-actions"><button class="quiet-button" value="cancel">Go back</button><button class="primary-button" id="dialog-confirm" value="confirm">Confirm</button></div>
+      </form>
+    </dialog>
+    <div class="toast-region" id="toasts" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">DevSentinel end-to-end architecture</title>
+  <desc id="desc">A GitHub request crosses an authenticated API boundary, becomes durable PostgreSQL state, moves through authorization, sandbox testing and a bounded repair worker, then reaches an evidence gate before a dry-run report or draft pull request.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07100d"/><stop offset="1" stop-color="#0b0e12"/></linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#14201b"/><stop offset="1" stop-color="#101613"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9dffca"/><stop offset="1" stop-color="#43d98a"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d7c2ff"/><stop offset="1" stop-color="#8f73d9"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#d7ebe0" stroke-opacity=".035"/></pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000" flood-opacity=".32"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#67e6a3"/></marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8ab9ff"/></marker>
+  </defs>
+  <rect width="1600" height="900" rx="28" fill="url(#bg)"/>
+  <rect width="1600" height="900" rx="28" fill="url(#grid)"/>
+  <circle cx="300" cy="80" r="260" fill="#42d88a" opacity=".045"/>
+  <circle cx="1420" cy="760" r="300" fill="#8ab9ff" opacity=".045"/>
+
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <g transform="translate(72 58)">
+      <path d="M0 8L27 0l27 8v27c0 19-12 33-27 41C12 68 0 54 0 35Z" fill="none" stroke="#8bf7bd" stroke-width="2"/>
+      <path d="M15 18v34l13 8V40l12-7V20L27 13Z" fill="none" stroke="#edf5f0" stroke-width="5" stroke-linejoin="bevel"/>
+      <text x="76" y="30" fill="#edf5f0" font-size="26" font-weight="700" letter-spacing="-.5">DevSentinel</text>
+      <text x="76" y="56" fill="#8bf7bd" font-family="ui-monospace,SFMono-Regular,monospace" font-size="12" font-weight="700" letter-spacing="2.3">END-TO-END ARCHITECTURE</text>
+    </g>
+    <text x="1528" y="77" text-anchor="end" fill="#8fa39a" font-size="15">One request → one evidence trail → human review</text>
+
+    <rect x="58" y="152" width="318" height="600" rx="24" fill="url(#panel)" stroke="#d3ebde" stroke-opacity=".13" filter="url(#shadow)"/>
+    <text x="88" y="194" fill="#8bf7bd" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11" font-weight="700" letter-spacing="2">GITHUB</text>
+    <text x="88" y="230" fill="#edf5f0" font-size="24" font-weight="700">Request &amp; review</text>
+    <text x="88" y="257" fill="#93a69c" font-size="14">The public collaboration surface</text>
+
+    <g transform="translate(86 300)">
+      <rect width="262" height="92" rx="16" fill="#0d1411" stroke="#8bf7bd" stroke-opacity=".22"/>
+      <circle cx="32" cy="32" r="15" fill="#8bf7bd" fill-opacity=".12" stroke="#8bf7bd" stroke-opacity=".7"/>
+      <path d="M25 32h14M32 25v14" stroke="#8bf7bd" stroke-width="2"/>
+      <text x="58" y="31" fill="#edf5f0" font-size="16" font-weight="650">Issue request</text>
+      <text x="58" y="54" fill="#93a69c" font-size="13">/devsentinel test or fix</text>
+      <text x="58" y="75" fill="#687a71" font-size="12">Actor + scope + acceptance notes</text>
+    </g>
+    <g transform="translate(86 414)">
+      <rect width="262" height="92" rx="16" fill="#0d1411" stroke="#8ab9ff" stroke-opacity=".22"/>
+      <path d="M20 25h24v18H20zM25 30l7 6 7-6" fill="none" stroke="#8ab9ff" stroke-width="2"/>
+      <text x="58" y="31" fill="#edf5f0" font-size="16" font-weight="650">Signed webhook</text>
+      <text x="58" y="54" fill="#93a69c" font-size="13">Raw-body HMAC verification</text>
+      <text x="58" y="75" fill="#687a71" font-size="12">Duplicates become one run</text>
+    </g>
+    <g transform="translate(86 528)">
+      <rect width="262" height="146" rx="16" fill="#0d1411" stroke="#c6a7ff" stroke-opacity=".22"/>
+      <text x="22" y="31" fill="#edf5f0" font-size="16" font-weight="650">Review surfaces</text>
+      <g fill="#93a69c" font-size="13">
+        <text x="22" y="61">• One calm progress comment</text>
+        <text x="22" y="86">• Draft pull request</text>
+        <text x="22" y="111">• Check result</text>
+        <text x="22" y="136">• Never an automatic merge</text>
+      </g>
+    </g>
+
+    <rect x="432" y="122" width="738" height="660" rx="28" fill="#0b1210" fill-opacity=".8" stroke="#8bf7bd" stroke-opacity=".3" stroke-dasharray="7 8"/>
+    <rect x="452" y="144" width="158" height="28" rx="14" fill="#11231a" stroke="#8bf7bd" stroke-opacity=".3"/>
+    <text x="531" y="162" text-anchor="middle" fill="#8bf7bd" font-family="ui-monospace,SFMono-Regular,monospace" font-size="10" font-weight="700" letter-spacing="1.4">TRUSTED CONTROL PLANE</text>
+
+    <g transform="translate(472 202)" filter="url(#shadow)">
+      <rect width="306" height="130" rx="19" fill="url(#panel)" stroke="#8ab9ff" stroke-opacity=".35"/>
+      <rect x="20" y="20" width="42" height="42" rx="12" fill="#8ab9ff" fill-opacity=".12"/>
+      <path d="M31 41h20M41 31v20" stroke="#8ab9ff" stroke-width="2"/>
+      <text x="78" y="42" fill="#edf5f0" font-size="18" font-weight="700">API boundary</text>
+      <text x="20" y="82" fill="#93a69c" font-size="13">Authenticates the event, parses the command,</text>
+      <text x="20" y="103" fill="#93a69c" font-size="13">and seals the request before work begins.</text>
+    </g>
+    <g transform="translate(824 202)" filter="url(#shadow)">
+      <rect width="306" height="130" rx="19" fill="url(#panel)" stroke="#8bf7bd" stroke-opacity=".35"/>
+      <ellipse cx="42" cy="31" rx="21" ry="9" fill="#8bf7bd" fill-opacity=".12" stroke="#8bf7bd"/>
+      <path d="M21 31v25c0 5 9 9 21 9s21-4 21-9V31M21 43c0 5 9 9 21 9s21-4 21-9" fill="none" stroke="#8bf7bd"/>
+      <text x="78" y="42" fill="#edf5f0" font-size="18" font-weight="700">PostgreSQL truth</text>
+      <text x="20" y="82" fill="#93a69c" font-size="13">Brief, snapshot, budgets, attempts, evidence,</text>
+      <text x="20" y="103" fill="#93a69c" font-size="13">leases, decisions, and delivery checkpoints.</text>
+    </g>
+
+    <g transform="translate(472 380)">
+      <rect width="306" height="130" rx="19" fill="url(#panel)" stroke="#f6cb75" stroke-opacity=".35"/>
+      <rect x="20" y="21" width="43" height="38" rx="10" fill="#f6cb75" fill-opacity=".1" stroke="#f6cb75"/>
+      <path d="M29 34h25M29 45h18" stroke="#f6cb75" stroke-width="2"/>
+      <text x="78" y="42" fill="#edf5f0" font-size="18" font-weight="700">Outbox + BullMQ</text>
+      <text x="20" y="82" fill="#93a69c" font-size="13">Durable hand-off and retry timing.</text>
+      <text x="20" y="103" fill="#687a71" font-size="12">The queue never decides what is allowed.</text>
+    </g>
+    <g transform="translate(824 380)">
+      <rect width="306" height="130" rx="19" fill="url(#panel)" stroke="#c6a7ff" stroke-opacity=".35"/>
+      <circle cx="42" cy="41" r="21" fill="#c6a7ff" fill-opacity=".1" stroke="#c6a7ff"/>
+      <path d="M32 41l7 7 14-16" fill="none" stroke="#c6a7ff" stroke-width="2"/>
+      <text x="78" y="42" fill="#edf5f0" font-size="18" font-weight="700">Bounded worker</text>
+      <text x="20" y="82" fill="#93a69c" font-size="13">Permission recheck → investigate → plan</text>
+      <text x="20" y="103" fill="#93a69c" font-size="13">→ source-only patch → verification.</text>
+    </g>
+
+    <g transform="translate(472 558)">
+      <rect width="306" height="150" rx="19" fill="url(#panel)" stroke="#8ab9ff" stroke-opacity=".35"/>
+      <text x="22" y="35" fill="#8ab9ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11" font-weight="700" letter-spacing="1.5">DISPOSABLE DOCKER</text>
+      <text x="22" y="66" fill="#edf5f0" font-size="18" font-weight="700">Locked install &amp; tests</text>
+      <text x="22" y="95" fill="#93a69c" font-size="13">Read-only root • no test network</text>
+      <text x="22" y="117" fill="#93a69c" font-size="13">CPU • memory • PID • time limits</text>
+      <text x="22" y="137" fill="#687a71" font-size="12">Fingerprints catch unexpected writes</text>
+    </g>
+    <g transform="translate(824 558)">
+      <rect width="306" height="150" rx="19" fill="url(#panel)" stroke="#c6a7ff" stroke-opacity=".35"/>
+      <text x="22" y="35" fill="#c6a7ff" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11" font-weight="700" letter-spacing="1.5">SERVER-SIDE MODEL</text>
+      <text x="22" y="66" fill="#edf5f0" font-size="18" font-weight="700">Narrow tools only</text>
+      <text x="22" y="95" fill="#93a69c" font-size="13">Search • bounded read • plan • propose</text>
+      <text x="22" y="117" fill="#93a69c" font-size="13">No shell • no credentials • no GitHub writes</text>
+      <text x="22" y="137" fill="#687a71" font-size="12">Budgets are reserved before calls</text>
+    </g>
+
+    <rect x="1222" y="152" width="320" height="600" rx="24" fill="url(#panel)" stroke="#d3ebde" stroke-opacity=".13" filter="url(#shadow)"/>
+    <text x="1252" y="194" fill="#8bf7bd" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11" font-weight="700" letter-spacing="2">EVIDENCE GATE</text>
+    <text x="1252" y="230" fill="#edf5f0" font-size="24" font-weight="700">Prove before publish</text>
+    <text x="1252" y="257" fill="#93a69c" font-size="14">Application code makes the decision</text>
+    <g transform="translate(1252 298)">
+      <rect width="260" height="54" rx="13" fill="#0d1713" stroke="#8bf7bd" stroke-opacity=".25"/>
+      <circle cx="26" cy="27" r="10" fill="#8bf7bd" fill-opacity=".15" stroke="#8bf7bd"/><path d="M21 27l4 4 7-9" fill="none" stroke="#8bf7bd" stroke-width="1.8"/>
+      <text x="48" y="32" fill="#dce9e2" font-size="13">Requested check passed</text>
+    </g>
+    <g transform="translate(1252 366)">
+      <rect width="260" height="54" rx="13" fill="#0d1713" stroke="#8bf7bd" stroke-opacity=".25"/>
+      <circle cx="26" cy="27" r="10" fill="#8bf7bd" fill-opacity=".15" stroke="#8bf7bd"/><path d="M21 27l4 4 7-9" fill="none" stroke="#8bf7bd" stroke-width="1.8"/>
+      <text x="48" y="32" fill="#dce9e2" font-size="13">Full suite passed</text>
+    </g>
+    <g transform="translate(1252 434)">
+      <rect width="260" height="54" rx="13" fill="#0d1713" stroke="#8bf7bd" stroke-opacity=".25"/>
+      <circle cx="26" cy="27" r="10" fill="#8bf7bd" fill-opacity=".15" stroke="#8bf7bd"/><path d="M21 27l4 4 7-9" fill="none" stroke="#8bf7bd" stroke-width="1.8"/>
+      <text x="48" y="32" fill="#dce9e2" font-size="13">Patch matches evidence</text>
+    </g>
+    <g transform="translate(1252 502)">
+      <rect width="260" height="54" rx="13" fill="#0d1713" stroke="#8bf7bd" stroke-opacity=".25"/>
+      <circle cx="26" cy="27" r="10" fill="#8bf7bd" fill-opacity=".15" stroke="#8bf7bd"/><path d="M21 27l4 4 7-9" fill="none" stroke="#8bf7bd" stroke-width="1.8"/>
+      <text x="48" y="32" fill="#dce9e2" font-size="13">Permission still valid</text>
+    </g>
+    <rect x="1252" y="586" width="260" height="86" rx="16" fill="url(#green)"/>
+    <text x="1382" y="620" text-anchor="middle" fill="#062416" font-size="17" font-weight="800">Dry run or draft PR</text>
+    <text x="1382" y="645" text-anchor="middle" fill="#0a452b" font-size="13">Human review is always the last step</text>
+
+    <path d="M376 443H432" fill="none" stroke="#67e6a3" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M778 267H824" fill="none" stroke="#67e6a3" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M977 332V380" fill="none" stroke="#67e6a3" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M778 445H824" fill="none" stroke="#67e6a3" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M900 510V532Q900 545 887 545H791Q778 545 778 558" fill="none" stroke="#8ab9ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <path d="M977 510V558" fill="none" stroke="#c6a7ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <path d="M1130 445H1188Q1205 445 1205 462V615Q1205 629 1222 629" fill="none" stroke="#67e6a3" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <g transform="translate(65 820)" font-family="ui-monospace,SFMono-Regular,monospace" font-size="11">
+      <circle cx="6" cy="-4" r="5" fill="#8bf7bd"/><text x="20" y="0" fill="#93a69c">authenticated / policy-controlled</text>
+      <circle cx="266" cy="-4" r="5" fill="#8ab9ff"/><text x="280" y="0" fill="#93a69c">isolated execution</text>
+      <circle cx="456" cy="-4" r="5" fill="#c6a7ff"/><text x="470" y="0" fill="#93a69c">bounded AI suggestion</text>
+      <text x="1470" y="0" text-anchor="end" fill="#687a71">PostgreSQL—not the model or queue—decides what happened.</text>
+    </g>
+  </g>
+</svg>

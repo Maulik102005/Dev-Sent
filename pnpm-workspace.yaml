@@ -1,0 +1,19 @@
+packages:
+  - apps/*
+  - packages/*
+
+# pnpm 11 reads project-level settings from this workspace file. Keeping the
+# store inside the workspace avoids writes to an inaccessible global store in
+# restricted development environments.
+storeDir: .pnpm-store
+packageImportMethod: copy
+confirmModulesPurge: false
+managePackageManagerVersions: false
+
+allowBuilds:
+  esbuild: true
+  msgpackr-extract: true
+
+overrides:
+  tsx: 4.20.0
+  vite: 6.1.0

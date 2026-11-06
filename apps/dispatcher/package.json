@@ -1,0 +1,24 @@
+{
+  "name": "@devsentinel/dispatcher",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/dispatch.ts"
+  },
+  "scripts": {
+    "dev": "node --env-file=../../.env --import tsx --watch src/server.ts",
+    "start": "node --env-file=../../.env --import tsx src/server.ts",
+    "typecheck": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "@devsentinel/database": "workspace:*",
+    "@devsentinel/queue": "workspace:*",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "4.20.0",
+    "typescript": "^5.9.2"
+  }
+}

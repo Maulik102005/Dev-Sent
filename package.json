@@ -1,0 +1,33 @@
+{
+  "name": "devsentinel",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:api": "pnpm --filter @devsentinel/api dev",
+    "dev:dispatcher": "pnpm --filter @devsentinel/dispatcher dev",
+    "dev:worker": "pnpm --filter @devsentinel/worker dev",
+    "db:generate": "pnpm --filter @devsentinel/database db:generate",
+    "db:migrate": "node --env-file=.env --import tsx packages/database/src/migrate-cli.ts",
+    "build": "pnpm frontend:check && pnpm typecheck",
+    "frontend:check": "node --check apps/api/src/dashboard.js && node --check scripts/demo-webhook.mjs",
+    "typecheck": "turbo typecheck",
+    "test": "vitest run --config vitest.config.ts",
+    "test:integration": "node scripts/test-integration.mjs",
+    "test:browser": "DEVSENTINEL_VITEST_CONFIG=vitest.browser.config.ts node scripts/test-integration.mjs",
+    "test:evaluation": "vitest run --config vitest.evaluation.config.ts",
+    "test:evaluation:live": "DEVSENTINEL_ENABLE_PAID_EVALS=1 vitest run --config vitest.live-evaluation.config.ts",
+    "test:sandbox": "node scripts/test-integration.mjs packages/sandbox/src/docker-sandbox.integration.test.ts",
+    "demo:trigger": "node --env-file=.env scripts/demo-webhook.mjs",
+    "runs": "node --env-file=.env --import tsx scripts/runs.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "4.20.0",
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2",
+    "vitest": "3.2.7"
+  }
+}

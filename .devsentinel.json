@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "guidance": {
+    "path": "DEVSENTINEL.md",
+    "version": "1"
+  },
+  "supportedSourcePaths": ["apps", "packages", "scripts"],
+  "excludedPaths": ["fixtures/devsentinel-playground"],
+  "testProfiles": [
+    {
+      "name": "workspace",
+      "relevantPaths": ["apps", "packages"],
+      "runner": "package-test"
+    }
+  ],
+  "regressionTests": {
+    "enabled": false,
+    "allowedPaths": ["test", "tests"]
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "repair_attempts" ADD COLUMN "model_diagnostics" jsonb;
